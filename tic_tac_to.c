@@ -127,7 +127,7 @@ void main() {
 
             if (count < 6) {
                 if (is_winner(1)) {
-                    printf("\n\tWINNER WINNER CHECKING DINNER - Player-1\n");
+                    printf("\n\tWINNER WINNER CHICKEN DINNER - Player-1\n");
                     count = 0;
                     break;
                 } else {
@@ -150,7 +150,7 @@ void main() {
             tic_tac_to_board(player_two_input, 2);
 
             if (count < 6) if (is_winner(2)) {
-                printf("\n\tWINNER WINNER CHECKING DINNER - Player-2\n");
+                printf("\n\tWINNER WINNER CHICKEN DINNER - Player-2\n");
                 count = 0;
                 break;
             } else {
