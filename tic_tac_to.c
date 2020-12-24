@@ -69,21 +69,21 @@ bool is_winner(int player) {
 
     for (int i = 0; i < 3; i++) {
 
-        //* check row count
+        //* check row match
         for (int j = 0; j < 3; j++) if (input == tic_tac_to[i][j]) {
             row_match++;
             if (row_match == 3) return true;
         }
         row_match = 0;
 
-        //* check column count
+        //* check column match
         for (int j = 0; j < 3; j++) if (input == tic_tac_to[j][i]) {
             col_match++;
             if (col_match == 3) return true;
         }
         col_match = 0;
         
-        //* check right angle
+        //* check right angle match
         if (max >= 0)
         if (input == tic_tac_to[i][max])  {
             right_angle_match++;
@@ -91,7 +91,7 @@ bool is_winner(int player) {
         }
         max--;
 
-        //* check left angle
+        //* check left angle match
         if (input == tic_tac_to[i][i]) {
             left_angle_match++;
             if (left_angle_match == 3) return true;
