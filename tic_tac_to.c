@@ -84,8 +84,7 @@ bool is_winner(int player) {
         col_match = 0;
         
         //* check right angle match
-        if (max >= 0)
-        if (input == tic_tac_to[i][max])  {
+        if (max >= 0) if (input == tic_tac_to[i][max]) {
             right_angle_match++;
             if (right_angle_match == 3)  return true;
         }
@@ -96,7 +95,6 @@ bool is_winner(int player) {
             left_angle_match++;
             if (left_angle_match == 3) return true;
         }
-        
     }
 
     return false;
@@ -130,9 +128,8 @@ void main() {
                     printf("\n\tWINNER WINNER CHICKEN DINNER - Player-1\n");
                     count = 0;
                     break;
-                } else {
-                    count_draw++;
-                }
+                } else count_draw++;
+                
             }
 
             players_input[player_one_input - 1] = player_one_input;
@@ -153,13 +150,10 @@ void main() {
                 printf("\n\tWINNER WINNER CHICKEN DINNER - Player-2\n");
                 count = 0;
                 break;
-            } else {
-                count_draw++;
-            }
+            } else count_draw++;
 
             players_input[player_two_input - 1] = player_two_input;
             count--; break;
-
         }
 
         while (!count) {
@@ -178,7 +172,7 @@ void main() {
                     players_input[i] = 0;
                 }
             }
-            
+
         }
 
     }
