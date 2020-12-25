@@ -84,6 +84,7 @@ bool found_match(int i, int player) {
         left_angle_match++;
         if (left_angle_match == 3) return true;
     }
+
     return false;
 }
 
@@ -162,7 +163,8 @@ void main() {
             printf("\n");
 
             if (continue_or_end == 1 || continue_or_end == 0) if (!continue_or_end) {
-                printf("\t___GAME OVER___\n"); break;
+                printf("\t___GAME OVER___\n");
+                break;
             } else count = 9;
         }
     }
