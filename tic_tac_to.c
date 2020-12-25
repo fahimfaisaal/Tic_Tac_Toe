@@ -157,7 +157,7 @@ void main() {
         }
 
         while (!count) {
-            count_draw == 5 && printf("\n\t____MATCH DRAW____0\n");
+            count_draw == 5 && printf("\n\t____MATCH DRAW____\n");
             printf("\n\nEnter 1 for Continue or 0 for End:");
 
             scanf("%d", &continue_or_end);
