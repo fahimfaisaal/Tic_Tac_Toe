@@ -52,7 +52,7 @@ bool validate_input_range(int number) {
     return true;
 }
 
-bool is_winner(int player) {
+bool found_match(int player) {
 
     int input = player == 1 ? 'X' : 'O',
         row_match = 0,
@@ -88,6 +88,12 @@ bool is_winner(int player) {
             if (left_angle_match == 3) return true;
         }
     }
+
+    return false;
+}
+bool is_winner(int player) {
+
+    if (found_match(player)) return true;
 
     return false;
 }
@@ -151,7 +157,7 @@ void main() {
         }
 
         while (!count) {
-            count_draw == 5 && printf("\n\t__MATCH DRAW__\n");
+            count_draw == 5 && printf("\n\t____MATCH DRAW____0\n");
             printf("\n\nEnter 1 for Continue or 0 for End:");
 
             scanf("%d", &continue_or_end);
@@ -160,7 +166,10 @@ void main() {
             if (continue_or_end == 1 || continue_or_end == 0) if (!continue_or_end) {
                 printf("\t___GAME OVER___\n");
                 break;
-            } else count = 9;
+            } else {
+                count = 9;
+                count_draw = 0;
+            }
         }
     }
 }
