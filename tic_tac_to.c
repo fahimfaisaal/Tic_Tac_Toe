@@ -19,12 +19,13 @@ void tic_tac_to_board(int number, int player) {
     }
 
     tic_tac_to[row][col] = (player == 1) ? 'X' : 'O';
-    
-    //# Tic Tac To Board
+
+    printf("\n\t **TicTacTo Board**\n");
     for (int i = 0; i < 3; i++) {
+        printf("\t| ");
         for (int j = 0; j < 3; j++) {
-            if (j != 2) printf(" [ %c ] ", tic_tac_to[i][j]);
-            else printf(" [ %c ]\n", tic_tac_to[i][j]);
+            if (j != 2) printf("[ %c ] ", tic_tac_to[i][j]);
+            else printf("[ %c ] |\n", tic_tac_to[i][j]);
         }
     }
 }
@@ -51,47 +52,41 @@ bool validate_input_range(int number) {
     return true;
 }
 
-bool found_match(int i, int player) {
+bool is_winner(int player) {
+
     int input = player == 1 ? 'X' : 'O',
         row_match = 0,
         col_match = 0,
         max = 2, right_angle_match = 0,
         left_angle_match = 0;
-        
-    //* check row match
-    for (int j = 0; j < 3; j++) if (input == tic_tac_to[i][j]) {
-        row_match++;
-        if (row_match == 3) return true;
-    }
-    row_match = 0;
-
-    //* check column match
-    for (int j = 0; j < 3; j++) if (input == tic_tac_to[j][i]) {
-        col_match++;
-        if (col_match == 3) return true;
-    }
-    col_match = 0;
-        
-    //* check right angle match
-    if (max >= 0) if (input == tic_tac_to[i][max]) {
-        right_angle_match++;
-        if (right_angle_match == 3)  return true;
-    }
-    max--;
-
-    //* check left angle match
-    if (input == tic_tac_to[i][i]) {
-        left_angle_match++;
-        if (left_angle_match == 3) return true;
-    }
-
-    return false;
-}
-
-bool is_winner(int player) {
 
     for (int i = 0; i < 3; i++) {
-        if (found_match(i, player)) return true;
+        //* check row match
+        for (int j = 0; j < 3; j++) if (input == tic_tac_to[i][j]) {
+            row_match++;
+            if (row_match == 3) return true;
+        }
+        row_match = 0;
+
+        //* check column match
+        for (int j = 0; j < 3; j++) if (input == tic_tac_to[j][i]) {
+            col_match++;
+            if (col_match == 3) return true;
+        }
+        col_match = 0;
+            
+        //* check right angle match
+        if (max >= 0) if (input == tic_tac_to[i][max]) {
+            right_angle_match++;
+            if (right_angle_match == 3)  return true;
+        }
+        max--;
+
+        //* check left angle match
+        if (input == tic_tac_to[i][i]) {
+            left_angle_match++;
+            if (left_angle_match == 3) return true;
+        }
     }
 
     return false;
@@ -127,7 +122,7 @@ void main() {
 
             if (count < 6) {
                 if (is_winner(1)) {
-                    printf("\n\t**WINNER WINNER CHICKEN DINNER - Player-1**\n");
+                    printf("\n**WINNER WINNER CHICKEN DINNER - Player-1**\n");
                     count = 0; break;
                 } else count_draw++;
             }
@@ -147,7 +142,7 @@ void main() {
             tic_tac_to_board(player_two_input, 2);
 
             if (count < 6) if (is_winner(2)) {
-                printf("\n\t**WINNER WINNER CHICKEN DINNER - Player-2**\n");
+                printf("\n**WINNER WINNER CHICKEN DINNER - Player-2**\n");
                 count = 0; break;
             } else count_draw++;
 
@@ -156,7 +151,7 @@ void main() {
         }
 
         while (!count) {
-            count_draw == 5 && printf("\t__MATCH DRAW__\n");
+            count_draw == 5 && printf("\n\t__MATCH DRAW__\n");
             printf("\n\nEnter 1 for Continue or 0 for End:");
 
             scanf("%d", &continue_or_end);
