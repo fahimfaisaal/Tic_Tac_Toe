@@ -7,7 +7,9 @@ int players_input[9];
 
 void tic_tac_to_board(int number, int player) {
 
-    int temp = number, row, col;
+    int temp = number,
+        row, col;
+    
     temp /= 3;
 
     if (number % 3 != 0) {
@@ -34,7 +36,8 @@ bool is_exist_number(int number) {
 
     for (int i = 0; i < 9; i++) {
         if (number == players_input[i]) {
-            printf("\nOops :(, your number is already exist please input another number.\n");
+            tic_tac_to_board(0, 0);
+            printf("\nOops :(, your number is already exist.\n");
             return true;
         }
     }
@@ -45,7 +48,8 @@ bool is_exist_number(int number) {
 bool validate_input_range(int number) {
 
     if (number < 1 || number > 9) {
-        printf("\nYour number is not valid, Please try again\n");
+        tic_tac_to_board(0, 0);
+        printf("\n__Your number %d is not valid! Please input a valid number__\n", number);
        return false;
     }
 
@@ -91,6 +95,7 @@ bool found_match(int player) {
 
     return false;
 }
+
 bool is_winner(int player) {
 
     if (found_match(player)) return true;
@@ -149,11 +154,13 @@ void main() {
 
             if (count < 6) if (is_winner(2)) {
                 printf("\n**WINNER WINNER CHICKEN DINNER - Player-2**\n");
-                count = 0; break;
+                count = 0;
+                break;
             } else count_draw++;
 
             players_input[player_two_input - 1] = player_two_input;
-            count--; break;
+            count--;
+            break;
         }
 
         while (!count) {
