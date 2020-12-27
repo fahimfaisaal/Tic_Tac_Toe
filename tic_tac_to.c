@@ -2,8 +2,18 @@
 #include <stdbool.h>
 #include <math.h>
 
-char tic_tac_to[3][3];
+char player_one_name[15],
+    player_two_name[15],
+    tic_tac_to[3][3];
 int players_input[9];
+
+void collect_players_name() {
+   printf("\nInput player one name: ");
+   scanf("%s", player_one_name);
+
+   printf("Input player two name: ");
+   scanf("%s", player_two_name);
+}
 
 void tic_tac_to_board(int number, int player) {
 
@@ -25,6 +35,7 @@ void tic_tac_to_board(int number, int player) {
     printf("\n\t **TicTacTo Board**\n");
     for (int i = 0; i < 3; i++) {
         printf("\t| ");
+
         for (int j = 0; j < 3; j++) {
             if (j != 2) printf("[ %c ] ", tic_tac_to[i][j]);
             else printf("[ %c ] |\n", tic_tac_to[i][j]);
@@ -119,10 +130,12 @@ void main() {
             for (int i = 0; i < 9; i++) players_input[i] = 0;
             
             tic_tac_to_board(0, 0);
+
+	        collect_players_name();
         }
 
         while (count) {
-            printf("\n\t__Player-1 Turn__\nInput a number from 1-9:");
+            printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_one_name);
             scanf("%d", &player_one_input);
 
             if (!validate_input_range(player_one_input)) continue;
@@ -133,7 +146,7 @@ void main() {
 
             if (count < 6) {
                 if (is_winner(1)) {
-                    printf("\n**WINNER WINNER CHICKEN DINNER - Player-1**\n");
+                    printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player_one_name);
                     count = 0; break;
                 } else count_draw++;
             }
@@ -143,7 +156,7 @@ void main() {
         }
 
         while (count) {
-            printf("\n\t__Player-2 Turn__\nInput a number from 1-9:");
+            printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_two_name);
             scanf("%d", &player_two_input);
 
             if (!validate_input_range(player_two_input)) continue;
@@ -153,7 +166,7 @@ void main() {
             tic_tac_to_board(player_two_input, 2);
 
             if (count < 6) if (is_winner(2)) {
-                printf("\n**WINNER WINNER CHICKEN DINNER - Player-2**\n");
+                printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player_two_name);
                 count = 0;
                 break;
             } else count_draw++;
