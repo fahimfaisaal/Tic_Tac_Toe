@@ -6,7 +6,8 @@ char player_one_name[15],
     tic_tac_to[3][3];
 int players_input[9];
 
-void clear(){
+//# For Clear Terminal
+void clear(void) {
     #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
         system("clear");
     #endif
@@ -16,7 +17,8 @@ void clear(){
     #endif
 }
 
-void collect_players_name() {
+//* Get input names from user
+void collect_players_name(void) {
    printf("\nInput player one name: ");
    scanf("%s", player_one_name);
 
@@ -24,7 +26,12 @@ void collect_players_name() {
    scanf("%s", player_two_name);
 }
 
-void tic_tac_to_board(int number, int player) {
+/**
+ * @param {Number} number from user
+ * @param {Number} player number 1 or 2
+ * print the tic tac to Board
+ */
+void players_input_organizer(int number, int player) {
 
     int row = number / 3, col;
 
@@ -36,6 +43,9 @@ void tic_tac_to_board(int number, int player) {
     }
 
     tic_tac_to[row][col] = (player == 1) ? 'X' : 'O';
+}
+
+void show_board(void) {
 
     printf("\n\t **TicTacTo Board**\n");
     for (int i = 0; i < 3; i++) {
@@ -52,7 +62,9 @@ bool is_exist_number(int number) {
 
     for (int i = 0; i < 9; i++) {
         if (number == players_input[i]) {
-            tic_tac_to_board(0, 0);
+            clear();
+            show_board();
+
             printf("\nOops :(, your number is already exist.\n");
             return true;
         }
@@ -64,7 +76,9 @@ bool is_exist_number(int number) {
 bool validate_input_range(int number) {
 
     if (number < 1 || number > 9) {
-        tic_tac_to_board(0, 0);
+        clear();
+        show_board();
+
         printf("\n__Your number %d is not valid! Please input a valid number__\n", number);
        return false;
     }
@@ -122,7 +136,8 @@ bool is_winner(int player) {
     return false;
 }
 
-void main() {
+void main(void) {
+
     int player_one_input,
         player_two_input,
         count = 9,
@@ -139,13 +154,15 @@ void main() {
                 tic_tac_to[i][j] = ' ';
             }
             for (int i = 0; i < 9; i++) players_input[i] = 0;
-            
-            tic_tac_to_board(0, 0);
+
+            show_board();
 
             if (name_change_permission) collect_players_name();
         }
 
+        //* Player One Turn
         while (count) {
+
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_one_name);
             scanf("%d", &player_one_input);
 
@@ -155,8 +172,8 @@ void main() {
             
             clear();
 
-            tic_tac_to_board(player_one_input, 1);
-
+            players_input_organizer(player_one_input, 1);
+            show_board();
 
             if (count < 6) if (is_winner(1)) {
                 count = 0; break;
@@ -166,6 +183,7 @@ void main() {
             count--; break;
         }
 
+        //* Players Two Turn
         while (count) {
 
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_two_name);
@@ -177,8 +195,8 @@ void main() {
 
             clear();
 
-            tic_tac_to_board(player_two_input, 2);
-
+            players_input_organizer(player_two_input, 2);
+            show_board();
 
             if (count < 6) if (is_winner(2)) {
                 count = 0; break;
@@ -188,6 +206,7 @@ void main() {
             count--; break;
         }
 
+        //* End the game, When count = 0
         while (!count) {
 
             count_draw == 5 && printf("\n\t____MATCH DRAW____\n");
