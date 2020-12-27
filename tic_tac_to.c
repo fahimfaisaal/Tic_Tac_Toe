@@ -1,11 +1,20 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <math.h>
 
 char player_one_name[15],
     player_two_name[15],
     tic_tac_to[3][3];
 int players_input[9];
+
+void clear(){
+    #if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+        system("clear");
+    #endif
+
+    #if defined(_WIN32) || defined(_WIN64)
+        system("cls");
+    #endif
+}
 
 void collect_players_name() {
    printf("\nInput player one name: ");
@@ -17,16 +26,12 @@ void collect_players_name() {
 
 void tic_tac_to_board(int number, int player) {
 
-    int temp = number,
-        row, col;
-    
-    temp /= 3;
+    int row = number / 3, col;
 
     if (number % 3 != 0) {
-        row = ceil(temp);
         col = (number % 3) - 1;
     } else {
-        row = --temp;
+        row--;
         col = 2;
     }
 
@@ -109,7 +114,10 @@ bool found_match(int player) {
 
 bool is_winner(int player) {
 
-    if (found_match(player)) return true;
+    if (found_match(player)) {
+         printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player == 1 ? player_one_name : player_two_name);
+         return true;
+    }
 
     return false;
 }
@@ -119,19 +127,22 @@ void main() {
         player_two_input,
         count = 9,
         count_draw = 0,
-        continue_or_end;
+        continue_or_end,
+        name_change_permission = 2;
 
     while (count) {
 
         if (count == 9) {
+            clear();
+
             for (int i = 0; i < 3; i++)  for (int j = 0; j < 3; j++) {
-                    tic_tac_to[i][j] = ' ';
+                tic_tac_to[i][j] = ' ';
             }
             for (int i = 0; i < 9; i++) players_input[i] = 0;
             
             tic_tac_to_board(0, 0);
 
-            collect_players_name();
+            if (name_change_permission) collect_players_name();
         }
 
         while (count) {
@@ -142,20 +153,21 @@ void main() {
 
             if (is_exist_number(player_one_input)) continue;
             
+            clear();
+
             tic_tac_to_board(player_one_input, 1);
 
-            if (count < 6) {
-                if (is_winner(1)) {
-                    printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player_one_name);
-                    count = 0; break;
-                } else count_draw++;
-            }
+
+            if (count < 6) if (is_winner(1)) {
+                count = 0; break;
+            } else count_draw++;
 
             players_input[player_one_input - 1] = player_one_input;
             count--; break;
         }
 
         while (count) {
+
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_two_name);
             scanf("%d", &player_two_input);
 
@@ -163,22 +175,23 @@ void main() {
 
             if (is_exist_number(player_two_input)) continue;
 
+            clear();
+
             tic_tac_to_board(player_two_input, 2);
 
+
             if (count < 6) if (is_winner(2)) {
-                printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player_two_name);
-                count = 0;
-                break;
+                count = 0; break;
             } else count_draw++;
 
             players_input[player_two_input - 1] = player_two_input;
-            count--;
-            break;
+            count--; break;
         }
 
         while (!count) {
+
             count_draw == 5 && printf("\n\t____MATCH DRAW____\n");
-            printf("\n\nEnter 1 for Continue or 0 for End:");
+            printf("\n\nEnter 1 for Continue or 0 for End: ");
 
             scanf("%d", &continue_or_end);
             printf("\n");
@@ -189,6 +202,14 @@ void main() {
             } else {
                 count = 9;
                 count_draw = 0;
+
+                while (1) {
+                    clear();
+                    
+                    printf("Would you like to change names? Yes(1) No(0)\n");
+                    scanf("%d", &name_change_permission);
+                    if (name_change_permission == 1 || name_change_permission == 0) break;
+                }
             }
         }
     }
