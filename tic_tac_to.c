@@ -131,7 +131,7 @@ void main() {
             
             tic_tac_to_board(0, 0);
 
-	        collect_players_name();
+            collect_players_name();
         }
 
         while (count) {
