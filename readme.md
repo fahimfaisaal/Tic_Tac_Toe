@@ -1,1 +1,1 @@
-# Tic Tac To (version - 1.3)
+# Tic Tac Toe (version - 2.0)
