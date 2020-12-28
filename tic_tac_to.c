@@ -29,7 +29,7 @@ void collect_players_name(void) {
 /**
  * @param {Number} number from user
  * @param {Number} player number 1 or 2
- * print the tic tac to Board
+ * organize the number by user input
  */
 void players_input_organizer(int number, int player) {
 
@@ -45,6 +45,7 @@ void players_input_organizer(int number, int player) {
     tic_tac_to[row][col] = (player == 1) ? 'X' : 'O';
 }
 
+//* Print the tic_tac_to board
 void show_board(void) {
 
     printf("\n\t **TicTacTo Board**\n");
@@ -58,6 +59,10 @@ void show_board(void) {
     }
 }
 
+/** 
+ * @param {integer} number form user
+ * @return {boolean} if exist number then -> true if not then -> false
+*/
 bool is_exist_number(int number) {
 
     for (int i = 0; i < 9; i++) {
@@ -73,6 +78,7 @@ bool is_exist_number(int number) {
     return false;
 }
 
+//* Validation user input range (1 - 9)
 bool validate_input_range(int number) {
 
     if (number < 1 || number > 9) {
@@ -86,6 +92,10 @@ bool validate_input_range(int number) {
     return true;
 }
 
+/** 
+ * @param {integer} Number of player 1 or 2
+ * @return {boolean} if found match then -> true if not then -> false
+*/
 bool found_match(int player) {
 
     int input = player == 1 ? 'X' : 'O',
@@ -126,6 +136,10 @@ bool found_match(int player) {
     return false;
 }
 
+/** 
+ * @param {integer} Number of player 1 or 2
+ * @return {boolean} if have found any match then -> true otherwise -> false
+*/
 bool is_winner(int player) {
 
     if (found_match(player)) {
@@ -143,7 +157,7 @@ void main(void) {
         count = 9,
         count_draw = 0,
         continue_or_end,
-        name_change_permission = 2;
+        name_change_permission = 1;
 
     while (count) {
 
@@ -222,6 +236,7 @@ void main(void) {
                 count = 9;
                 count_draw = 0;
 
+                //* Name Change Permission
                 while (1) {
                     clear();
                     
