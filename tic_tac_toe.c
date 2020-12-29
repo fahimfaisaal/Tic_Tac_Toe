@@ -171,6 +171,7 @@ bool found_match(int player) {
 bool is_winner(int player) {
 
     if (found_match(player)) {
+        (player == 1) ? player_one_win_count++ : player_two_win_count++;
         clear_and_show(1);
         printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player == 1 ? player_one_name : player_two_name);
         return true;
@@ -216,9 +217,7 @@ void main(void) {
             clear_and_show(1);
 
             if (count < 6) if (is_winner(1)) {
-                player_one_win_count++;
-                count = 0;
-                break;
+                count = 0; break;
             } else count_draw++;
 
             players_input[player_one_input - 1] = player_one_input;
@@ -239,7 +238,6 @@ void main(void) {
             clear_and_show(1);
 
             if (count < 6) if (is_winner(2)) {
-                player_two_win_count++;
                 count = 0; break;
             } else count_draw++;
 
@@ -249,7 +247,7 @@ void main(void) {
 
         //* End the game, When count = 0__________________
         while (!count) {
-    
+            
             if (count_draw == 5) {
                 draw++;
                 printf("\n\t____MATCH DRAW____\n");
