@@ -21,15 +21,6 @@ void clear(void) {
     #endif
 }
 
-/** 
- * @param {integer}
- * for show_winner_count function
-*/
-void clear_and_show(int num) {
-    clear();
-    show_winner_count(num);
-    show_board();
-}
 
 //* Get input names from user__________________
 void collect_players_name(void) {
@@ -86,6 +77,16 @@ void show_winner_count(int is_end) {
     } else if (player_two_win_count > player_one_win_count) {
         printf("\nFinal Winner is %s\n\n", player_two_name);                    
     } else printf("\n\t___MATCH DRAW___\n\n");
+}
+
+/** 
+ * @param {integer}
+ * for show_winner_count function
+*/
+void clear_and_show(int num) {
+    clear();
+    show_winner_count(num);
+    show_board();
 }
 
 /** 
@@ -170,8 +171,9 @@ bool found_match(int player) {
 bool is_winner(int player) {
 
     if (found_match(player)) {
-         printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player == 1 ? player_one_name : player_two_name);
-         return true;
+        clear_and_show(1);
+        printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player == 1 ? player_one_name : player_two_name);
+        return true;
     }
 
     return false;
@@ -247,10 +249,8 @@ void main(void) {
 
         //* End the game, When count = 0__________________
         while (!count) {
-            clear_and_show(1);
-
+    
             if (count_draw == 5) {
-                clear_and_show(1);
                 draw++;
                 printf("\n\t____MATCH DRAW____\n");
             }
@@ -264,7 +264,8 @@ void main(void) {
              * else the whole process will end and show the final winner__________________
             */
             if (continue_or_end == 1 || continue_or_end == 0) if (!continue_or_end) {
-                clear_and_show(0);
+                clear();
+                show_winner_count(0);
                 printf("\t___GAME OVER___\n");
                 break;
             } else {
