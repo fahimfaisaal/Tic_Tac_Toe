@@ -250,6 +250,7 @@ void main(void) {
             
             if (count_draw == 5) {
                 draw++;
+                clear_and_show(1);
                 printf("\n\t____MATCH DRAW____\n");
             }
             printf("\n\nEnter 1 for Continue or 0 for End: ");
