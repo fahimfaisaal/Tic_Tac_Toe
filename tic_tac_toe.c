@@ -155,15 +155,19 @@ void players_input_organizer(int number, int player) {
 
 //* Print the tic_tac_to board__________________
 void show_board(void) {
-    printf("\n\t **TicTacTo Board**\n");
-    for (int i = 0; i < 3; i++) {
-        printf("\t| ");
+    printf("\n\t*TicTacToe Board*\n");
+    printf("\t     |     |     \n");
 
-        for (int j = 0; j < 3; j++) {
-            if (j != 2) printf("[ %c ] ", tic_tac_to_board[i][j]);
-            else printf("[ %c ] |\n", tic_tac_to_board[i][j]);
-        }
+    for (int i = 0; i < 3; i++) {
+        i && printf("\t_____|_____|_____\n\t     |     |     \n");
+
+        printf("\t");
+        for (int j = 0; j < 3; j++)
+            if (j != 2) printf("  %c  |", tic_tac_to_board[i][j]);
+            else printf("  %c\n", tic_tac_to_board[i][j]);
     }
+
+    printf("\t     |     |     \n");
 }
 
 /** 
