@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-//# Use Ten functions
+//# Used Ten functions
 void clear(void);
 void collect_players_name(void);
 void players_input_organizer(int number, int player);
@@ -24,9 +24,8 @@ int *players_input = NULL,
     player_two_win_count = 0,
     draw = 0;
 
-//* Main Body -------------------------------------------- Start
+//* Main Body ------------------------------ Start
 void main(void) {
-
     int player_one_input,
         player_two_input,
         count = 9,
@@ -36,9 +35,9 @@ void main(void) {
     while (count) {
 
         if (count == 9) {
-            for (int i = 0; i < 3; i++)  for (int j = 0; j < 3; j++) {
-                tic_tac_to_board[i][j] = ' ';
-            }
+            for (int i = 0; i < 3; i++) 
+                for (int j = 0; j < 3; j++)
+                    tic_tac_to_board[i][j] = ' ';            
 
             players_input = calloc(9, 4);
 
@@ -49,7 +48,6 @@ void main(void) {
 
         //* Player One Turn__________________
         while (count) {
-
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_one_name);
             scanf("%d", &player_one_input);
 
@@ -70,7 +68,6 @@ void main(void) {
 
         //* Players Two Turn__________________
         while (count) {
-
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_two_name);
             scanf("%d", &player_two_input);
 
@@ -90,8 +87,7 @@ void main(void) {
         }
 
         //* End the game, When count = 0__________________
-        while (!count) {
-            
+        while (!count) {    
             if (count_draw == 5) {
                 draw++;
                 clear_and_show(1);
@@ -106,19 +102,19 @@ void main(void) {
              * if continue_or_end = 1 then the game will start again with existing players
              * else the whole process will end and show the final winner__________________
             */
-            if (continue_or_end == 1 || continue_or_end == 0) if (!continue_or_end) {
-                clear();
-                show_winner_count(0);
-                printf("\t___GAME OVER___\n");
-                break;
-            } else {
-                count = 9;
-                count_draw = 0;
-            }
+            if (continue_or_end == 1 || continue_or_end == 0)
+                if (!continue_or_end) {
+                    clear();
+                    show_winner_count(0);
+                    printf("\t___GAME OVER___\n");
+                    break;
+                } else {
+                    count = 9;
+                    count_draw = 0;
+                }
         }
     }
 }
-
 
 //# For Clear Terminal
 void clear(void) {
@@ -130,7 +126,6 @@ void clear(void) {
         system("cls");
     #endif
 }
-
 
 //* Get input names from user__________________
 void collect_players_name(void) {
@@ -147,12 +142,10 @@ void collect_players_name(void) {
  * organize the number by user input__________________
  */
 void players_input_organizer(int number, int player) {
-
     int row = number / 3, col;
 
-    if (number % 3 != 0) {
-        col = (number % 3) - 1;
-    } else {
+    if (number % 3) col = (number % 3) - 1;
+    else {
         row--;
         col = 2;
     }
@@ -162,7 +155,6 @@ void players_input_organizer(int number, int player) {
 
 //* Print the tic_tac_to board__________________
 void show_board(void) {
-
     printf("\n\t **TicTacTo Board**\n");
     for (int i = 0; i < 3; i++) {
         printf("\t| ");
@@ -182,11 +174,13 @@ void show_winner_count(int is_end) {
     printf("%s = %d\n%s = %d\nDraw = %d\n", player_one_name, player_one_win_count, player_two_name, player_two_win_count, draw);
 
     //* if is_end = 0 mean the game has ended, then it'll compare the winner count of players and show the final winner
-    if (!is_end) if (player_one_win_count > player_two_win_count) {
+    if (!is_end) if (player_one_win_count > player_two_win_count)
         printf("\nFinal Winner is %s\n\n", player_one_name);
-    } else if (player_two_win_count > player_one_win_count) {
-        printf("\nFinal Winner is %s\n\n", player_two_name);                    
-    } else printf("\n\t___MATCH DRAW___\n\n");
+
+    else if (player_two_win_count > player_one_win_count)
+        printf("\nFinal Winner is %s\n\n", player_two_name); 
+                   
+    else printf("\n\t___MATCH DRAW___\n\n");
 }
 
 /** 
@@ -204,22 +198,19 @@ void clear_and_show(int num) {
  * @return {boolean} if exist number then -> true if not then -> false__________________
 */
 bool is_exist_number(int number) {
-
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 9; i++)
         if (number == players_input[i]) {
             clear_and_show(1);
 
             printf("\nOops :(, your number is already exist.\n");
             return true;
         }
-    }
 
     return false;
 }
 
 //* Validation user input range 1 to 9__________________
 bool validate_input_range(int number) {
-
     if (number < 1 || number > 9) {
         clear_and_show(1);
 
@@ -235,7 +226,6 @@ bool validate_input_range(int number) {
  * @return {boolean} if found match then -> true if not then -> false__________________
 */
 bool found_match(int player) {
-
     int input = player == 1 ? 'X' : 'O',
         row_match = 0,
         col_match = 0,
@@ -260,7 +250,7 @@ bool found_match(int player) {
         //* check right angle match__________________
         if (max >= 0) if (input == tic_tac_to_board[i][max]) {
             right_angle_match++;
-            if (right_angle_match == 3)  return true;
+            if (right_angle_match == 3) return true;
         }
         max--;
 
@@ -279,7 +269,6 @@ bool found_match(int player) {
  * @return {boolean} if have found any match then -> true otherwise -> false__________________
 */
 bool is_winner(int player) {
-
     if (found_match(player)) {
         (player == 1) ? player_one_win_count++ : player_two_win_count++;
         clear_and_show(1);
