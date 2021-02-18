@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "functions/1_collectPlayersName.h"
+#include "functions/2_board.h"
+#include "functions/3_inputOrganizer.h"
+#include "functions/4_matchFounder.h"
 
-//# Used Ten functions
+//# Six global functions
 void clear(void);
-void collect_players_name(void);
-void players_input_organizer(int number, int player);
-void show_board(void);
 void show_winner_count(int is_end);
 void clear_and_show(int num);
 bool is_exist_number(int number);
 bool validate_input_range(int number);
-bool found_match(int player);
 bool is_winner(int player);
 
 //* Global Variables
@@ -41,7 +41,8 @@ void main(void) {
 
             players_input = calloc(9, 4);
 
-            if (!continue_or_end) collect_players_name();
+            if (!continue_or_end)
+             collect_players_name(player_one_name, player_two_name);
 
             clear_and_show(1);
         }
@@ -55,7 +56,7 @@ void main(void) {
 
             if (is_exist_number(player_one_input)) continue;
             
-            players_input_organizer(player_one_input, 1);
+            players_input_organizer(player_one_input, 1, tic_tac_to_board);
             clear_and_show(1);
 
             if (count < 6) if (is_winner(1)) {
@@ -75,7 +76,7 @@ void main(void) {
 
             if (is_exist_number(player_two_input)) continue;
 
-            players_input_organizer(player_two_input, 2);
+            players_input_organizer(player_two_input, 2, tic_tac_to_board);
             clear_and_show(1);
 
             if (count < 6) if (is_winner(2)) {
@@ -127,49 +128,6 @@ void clear(void) {
     #endif
 }
 
-//* Get input names from user__________________
-void collect_players_name(void) {
-   printf("\nInput player one name: ");
-   scanf("%[^\n]%*c", player_one_name);
-
-   printf("Input player two name: ");
-   scanf("%[^\n]%*c", player_two_name);
-}
-
-/**
- * @param {Number} number from user
- * @param {Number} player number 1 or 2
- * organize the number by user input__________________
- */
-void players_input_organizer(int number, int player) {
-    int row = number / 3, col;
-
-    if (number % 3) col = (number % 3) - 1;
-    else {
-        row--;
-        col = 2;
-    }
-
-    tic_tac_to_board[row][col] = (player == 1) ? 'X' : 'O';
-}
-
-//* Print the tic_tac_to board__________________
-void show_board(void) {
-    printf("\n\t*TicTacToe Board*\n");
-    printf("\t     |     |     \n");
-
-    for (int i = 0; i < 3; i++) {
-        i && printf("\t_____|_____|_____\n\t     |     |     \n");
-
-        printf("\t");
-        for (int j = 0; j < 3; j++)
-            if (j != 2) printf("  %c  |", tic_tac_to_board[i][j]);
-            else printf("  %c\n", tic_tac_to_board[i][j]);
-    }
-
-    printf("\t     |     |     \n");
-}
-
 /** 
  * @param {Integer} is_end
  * if the game ends then it'll compare & show the final winner__________________
@@ -194,7 +152,7 @@ void show_winner_count(int is_end) {
 void clear_and_show(int num) {
     clear();
     show_winner_count(num);
-    show_board();
+    show_board(tic_tac_to_board);
 }
 
 /** 
@@ -227,53 +185,10 @@ bool validate_input_range(int number) {
 
 /** 
  * @param {integer} Number of player 1 or 2
- * @return {boolean} if found match then -> true if not then -> false__________________
-*/
-bool found_match(int player) {
-    int input = player == 1 ? 'X' : 'O',
-        row_match = 0,
-        col_match = 0,
-        max = 2, right_angle_match = 0,
-        left_angle_match = 0;
-
-    for (int i = 0; i < 3; i++) {
-        //* check row match__________________
-        for (int j = 0; j < 3; j++) if (input == tic_tac_to_board[i][j]) {
-            row_match++;
-            if (row_match == 3) return true;
-        }
-        row_match = 0;
-
-        //* check column match__________________
-        for (int j = 0; j < 3; j++) if (input == tic_tac_to_board[j][i]) {
-            col_match++;
-            if (col_match == 3) return true;
-        }
-        col_match = 0;
-            
-        //* check right angle match__________________
-        if (max >= 0) if (input == tic_tac_to_board[i][max]) {
-            right_angle_match++;
-            if (right_angle_match == 3) return true;
-        }
-        max--;
-
-        //* check left angle match__________________
-        if (input == tic_tac_to_board[i][i]) {
-            left_angle_match++;
-            if (left_angle_match == 3) return true;
-        }
-    }
-
-    return false;
-}
-
-/** 
- * @param {integer} Number of player 1 or 2
  * @return {boolean} if have found any match then -> true otherwise -> false__________________
 */
 bool is_winner(int player) {
-    if (found_match(player)) {
+    if (found_match(player, tic_tac_to_board)) {
         (player == 1) ? player_one_win_count++ : player_two_win_count++;
         clear_and_show(1);
         printf("\n**WINNER WINNER CHICKEN DINNER - %s**\n", player == 1 ? player_one_name : player_two_name);
