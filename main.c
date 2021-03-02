@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
+//* Five external functions
 #include "functions/1_collect_players_name.h"
 #include "functions/2_board.h"
 #include "functions/3_input_organizer.h"
 #include "functions/4_match_founder.h"
 #include "functions/5_computer_turn.h"
 
-//# Six global functions
+//# Seven global functions
 void clear(void);
+void intro_page();
 void show_winner_count(int is_end);
 void clear_and_show(int num);
-void intro_page();
 bool is_exist_number(int number);
 bool validate_input_range(int number);
 bool is_winner(int player);
@@ -68,7 +70,7 @@ void main(void) {
             clear_and_show(1);
         }
 
-        //* Player One Turn__________________
+        //* Players One Turn__________________
         while (count) {
             printf("\n\t__%s's Turn__\nInput a number from 1-9: ", player_one_name);
             scanf("%d", &player_one_input);
@@ -161,7 +163,7 @@ void clear(void) {
     #endif
 }
 
-void intro_page() {
+void intro_page(void) {
     printf("Enter 1 for play solo\nEnter 2 for play duel\nEnter 0 for exit\n");
     int solo_duel_exit;
     scanf("%d", &solo_duel_exit);
