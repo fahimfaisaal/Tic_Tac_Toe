@@ -130,7 +130,7 @@ void main(void) {
              * if continue_or_end = 1 then the game will start again with existing players
              * else the whole process will end and show the final winner__________________
             */
-            if (continue_or_end == 1 || continue_or_end == 0)
+            if (continue_or_end == 1 || continue_or_end == 0) {
                 clear();
                 show_winner_count(0);
 
@@ -147,7 +147,7 @@ void main(void) {
                     count = 9;
                     count_draw = 0;
                 }
-                
+            }
         }
     }
 }
