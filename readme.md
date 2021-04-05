@@ -12,15 +12,15 @@ if the last one has selected, then the game will close, and it'll show the final
 
 #### Here is the solo game interface -
 
-![soloGameInterface](Img/soloInterface.png)
+![soloGameInterface](img/soloInterface.png)
 
 
 In the duel game, you can add names (player one and player two).
 
 #### Here is the interface -
 
-![duelGameInputNameInterface](Img/DuelGameInputNameInterface.png)
+![duelGameInputNameInterface](img/DuelGameInputNameInterface.png)
 
 #### Here is the Duel game Interface -
 
-![duelGameInterface](Img/duelGameInterface.png)
+![duelGameInterface](img/duelGameInterface.png)
