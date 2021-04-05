@@ -1,4 +1,4 @@
-<h1 align="center">Tic Tac Toe <sup>3.0</sup></h1>
+<h1 align="center">Tic Tac Toe <sup><code>3.0</code></sup></h1>
 
 It's CLI(Command Line Interface) based game. The first intro in this game has a menu, which has three options.
 
