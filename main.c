@@ -44,6 +44,7 @@ void main(void) {
 
     while (count) {
         start_game = true;
+        
         if (count == 9) {
             for (int i = 0; i < 3; i++) 
                 for (int j = 0; j < 3; j++)
@@ -60,7 +61,7 @@ void main(void) {
                 player_two_name = calloc(15, 1);
             }
 
-            if (!is_solo)  {
+            if (!is_solo) {
                 if (!continue_or_end) collect_players_name(player_one_name, player_two_name);
             } else {
                 player_one_name = "Your";
@@ -136,6 +137,7 @@ void main(void) {
 
                 if (continue_or_end == 1 && !is_solo) {
                     count = 9;
+                    count_draw = 0;
                     continue;
                 }
 
@@ -164,7 +166,7 @@ void clear(void) {
 }
 
 void intro_page(void) {
-    printf("Enter 1 for play solo\nEnter 2 for play duel\nEnter 0 for exit\n");
+    printf("Enter 1 for play solo\nEnter 2 for play duel\nEnter 0 for exit\n: ");
     int solo_duel_exit;
     scanf("%d", &solo_duel_exit);
 
