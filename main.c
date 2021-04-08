@@ -40,6 +40,7 @@ void main(void) {
         count_draw = 0,
         continue_or_end = 0;
 
+    //* Here is the intro page has executed (Main menu)
     intro_page();
 
     while (count) {
@@ -56,6 +57,7 @@ void main(void) {
 
             players_input = calloc(9, 4);
             
+            //* if user chose the duel option
             if (!continue_or_end) {
                 player_one_name = calloc(15, 1);
                 player_two_name = calloc(15, 1);
@@ -67,6 +69,8 @@ void main(void) {
                 player_one_name = "Your";
                 player_two_name = "Computer";
             }
+
+            //* ===============================
 
             clear_and_show(1);
         }
