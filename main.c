@@ -19,19 +19,18 @@ bool validate_input_range(int number);
 bool is_winner(int player);
 
 //* Global Variables
-char *player_one_name = NULL,
-     *player_two_name = NULL,
-     tic_tac_to_board[3][3],
-     computer_board[9];
+static char *player_one_name = NULL,
+            *player_two_name = NULL,
+            tic_tac_to_board[3][3],
+            computer_board[9];
 
-int *players_input = NULL,
-    player_one_win_count = 0,
-    player_two_win_count = 0,
-    draw = 0,
-    count = 9;
+static int *players_input = NULL,
+            player_one_win_count = 0,
+            player_two_win_count = 0,
+            draw = 0,
+            count = 9;
 
-bool is_solo,
-    start_game = false;
+static bool is_solo, start_game;
 
 //* Main Body ------------------------------ Start
 void main(void) {
